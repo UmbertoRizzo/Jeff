@@ -9,5 +9,33 @@ header {
     color: #ffffff;
     text-align: center;
     font-size: 52px;
+    font-weight: 700;
+}
+
+sottotitolo {
+    color: #ffffff;
+    text-align: left;
+    font-size: 32px;
     font-weight: 400;
+}
+
+paragrafo {
+    color: #ffffff;
+    text-align: left;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+bottone {
+    background-color: #ffffff;
+    color: #9c2b2b;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+bottone:hover {
+    background-color: #f2f2f2;
 }
