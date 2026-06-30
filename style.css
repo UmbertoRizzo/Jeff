@@ -1,27 +1,44 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #9c2b2b;
+    font-family: Tahoma, sans-serif;
+    background-color: #ffffff;
     margin: 100px;
     padding: 40px;
 }
 
-.header {
-    color: #ffffff;
+:root {
+    --primary-color: #c71e32;
+    --secondary-color: #f5f5f5;
+    --text-color: #ffffff;
+    --shadow: 0px 0px 10px 5px rgba(199, 30, 50, 0.23);
+    --font-family: "Titillium Web", Arial, sans-serif;
+
+}
+
+.bottone {
+    background-color: var(--primary-color);
+
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+
+    position: fixed;
+    right: 5%;
+    bottom: 10%;
+
+    display: inline-block;
     text-align: center;
-    font-size: 52px;
-    font-weight: 700;
+    font-family: var(--font-family);
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
 }
 
-.sottotitolo {
-    color: #ffffff;
-    text-align: left;
-    font-size: 32px;
-    font-weight: 400;
+.bottone:hover {
+    box-shadow: var(--shadow);
+    transform: scale(1.05);
+
 }
 
-.paragrafo {
-    color: #ffffff;
-    text-align: left;
-    font-size: 24px;
-    font-weight: 400;
-}
