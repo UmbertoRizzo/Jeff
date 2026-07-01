@@ -11,22 +11,24 @@ body {
     --text-color: #ffffff;
     --shadow: 0px 0px 10px 5px rgba(199, 30, 50, 0.23);
     --font-family: "Titillium Web", Arial, sans-serif;
-
+    --position-right: 5%;
+    --position-bottom: 10%;
+    --dimension: calc(10vw - 40px);
 }
 
 .bottone {
     background-color: var(--primary-color);
 
-    height: 100px;
-    width: 100px;
+    height: var(--dimension);
+    width: var(--dimension);
     border-radius: 50%;
     border: none;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
 
     position: fixed;
-    right: 5%;
-    bottom: 10%;
+    right: var(--position-right);
+    bottom: var(--position-bottom);
 
     display: inline-block;
     text-align: center;
@@ -41,4 +43,3 @@ body {
     transform: scale(1.05);
 
 }
-
