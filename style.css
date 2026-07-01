@@ -13,7 +13,7 @@ body {
     --font-family: "Titillium Web", Arial, sans-serif;
     --position-right: 5%;
     --position-bottom: 10%;
-    --dimension: calc(10vw + 40px);
+    --dimension: calc(10vw + 100px);
 }
 
 .bottone {
