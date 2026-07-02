@@ -11,12 +11,16 @@ body {
     --text-color: #ffffff;
     --shadow: 0px 0px 10px 5px rgba(199, 30, 50, 0.23);
     --font-family: "Titillium Web", Arial, sans-serif;
-    --position-right: 5%;
-    --position-bottom: 10%;
+    --position-right: 20px;
+    --position-bottom: 40px;
     --dimension: calc(6vmin + 70px);
 }
 
 .bottone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     background-color: var(--primary-color);
 
     height: var(--dimension);
@@ -24,7 +28,7 @@ body {
     border-radius: 50%;
     border: none;
     box-shadow: var(--shadow);
-    transition:transform 0.6s ease, box-shadow 0.6s ease;
+    transition: right 0.6s ease, bottom 0.6s ease, width 0.25s ease, height 0.25s ease, border-radius 0.25s ease, transform 0.6s ease, box-shadow 0.6s ease, opacity 0.6s ease;
 
     position: fixed;
     right: var(--position-right);
@@ -32,18 +36,64 @@ body {
     cursor: default;
     touch-action: none;
     user-select: none;
-    transition: right 0.6s ease, bottom 0.6s ease;
-
-    display: inline-block;
-    text-align: center;
-    font-family: var(--font-family);
-    color: var(--text-color);
-    font-weight: 600;
-    font-size: 16px;
 }
 
 .bottone:hover {
     box-shadow: var(--shadow);
     transform: scale(1.05);
+}
 
+.bottone.linguetta{
+    display: flex;
+    justify-content: center;
+    background-color: var(--primary-color);
+    height: calc(var(--dimension) * 0.6);
+    width: calc(var(--dimension) * 1.5);
+    border-radius: 25px;
+
+}
+
+.bottone.opaco {
+    opacity: 0.5;
+}
+
+.bottone.opaco:hover {
+    opacity: 1;
+}
+
+
+.text {
+    display: inline;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: var(--font-family);
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+
+}
+
+.right-arrow {
+    display: none;
+    align-items: left;
+    justify-content: left;
+    text-align: center;
+    font-family: var(--font-family);
+    color: var(--text-color);
+    margin-left: 15px;
+    font-size: 40px;
+    font-weight: 1000;
+}
+
+.left-arrow {
+    display: none;
+    align-items: right;
+    justify-content: right;
+    text-align: center;
+    font-family: var(--font-family);
+    color: var(--text-color);
+    margin-right: 15px;
+    font-size: 40px;
+    font-weight: 1000;
 }
