@@ -4,7 +4,12 @@ const frecciaDestra = document.querySelector(".right-arrow");
 const frecciaSinistra = document.querySelector(".left-arrow");
 const testo = document.querySelector(".text");
 
+//variabili per il drag del bottone
 let isDragging = false;
+let hasdragged = false;
+let startX=0, startY=0;
+
+
 
 function mostraBottone() {
     bottone.classList.remove("linguetta");
@@ -32,7 +37,6 @@ function mostraLinguetta(lato) {
 }
 
 //sezione funzioni per l'opacizzazione del bottone dopo 5 secondi di inattività
-
 let inactivityTimeout;
 function deopacizzaBottone() {
     clearTimeout(inactivityTimeout);
@@ -46,6 +50,7 @@ function opacizzaBottone() {
     }, 5000);
 }
 
+
 bottone.addEventListener("mouseenter", deopacizzaBottone);
 bottone.addEventListener("mouseleave", opacizzaBottone);
 
@@ -55,6 +60,9 @@ bottone.addEventListener("pointerdown", function(e) {
     bottone.style.transition = "none";
     bottone.setPointerCapture(e.pointerId);
     deopacizzaBottone();
+    hasdragged = false;
+    startX = e.clientX;
+    startY = e.clientY;
 });
 
 bottone.addEventListener("pointermove", function(e) {
@@ -81,6 +89,22 @@ bottone.addEventListener("pointermove", function(e) {
 });
 
 bottone.addEventListener("pointerup", function(e) {
+    if (Math.abs(e.clientX - startX) > 5 || Math.abs(e.clientY - startY) > 5) {
+        hasdragged = true;
+    }
+    if (hasdragged===false) {
+        if (bottone.classList.contains("linguetta")) {
+            mostraBottone();
+            isDragging=false;
+            if(e.clientX < window.innerWidth / 2) {
+                bottone.style.right = window.innerWidth - 60 - bottone.offsetWidth + "px";
+            } else {
+                bottone.style.right = "20px";
+            }
+            return;
+        } else {}
+    }
+
     isDragging=false;
     bottone.style.transition = "all 0.6s ease";
     if(e.clientX < window.innerWidth / 2) {
@@ -105,4 +129,6 @@ bottone.addEventListener("pointerup", function(e) {
         bottone.style.bottom = window.innerHeight - 20 - bottone.offsetHeight + "px";
     }
     bottone.releasePointerCapture(e.pointerId);
+
 });
+
