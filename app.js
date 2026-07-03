@@ -132,3 +132,16 @@ bottone.addEventListener("pointerup", function(e) {
 
 });
 
+//da qui parte il codice della gestione della chat
+
+const chatInput = document.querySelector(".chat-input");
+const chatContainer = document.querySelector(".chat-container");
+
+chatInput.addEventListener("input", function() {
+    chatInput.rows = 1;
+
+    const lineHeight = 20;
+    const righe = Math.ceil(chatInput.scrollHeight / lineHeight - 1);
+
+    chatInput.rows = Math.min(righe, 5);
+});
