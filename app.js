@@ -25,12 +25,12 @@ function mostraLinguetta(lato) {
     testo.style.display = "none";
 
     if (lato === "destra") {
-        bottone.style.right = "-120px";
+        bottone.style.right = 60- bottone.offsetWidth + "px";
         bottone.style.justifyContent = "left";
         frecciaDestra.style.display = "inline";
         frecciaSinistra.style.display = "none";
     } else {
-        bottone.style.right = window.innerWidth - 60 + "px";
+        bottone.style.right = window.innerWidth - bottone.offsetWidth * 0.35 + "px";
         bottone.style.justifyContent = "right";
         frecciaDestra.style.display = "none";
         frecciaSinistra.style.display = "inline";
@@ -108,6 +108,7 @@ bottone.addEventListener("pointerup", function(e) {
             chat.style.display = "flex";
             bottone.style.display = "none";
         }
+        opacizzaBottone();
     }
 
     isDragging=false;
