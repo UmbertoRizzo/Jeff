@@ -3,6 +3,7 @@ const linguetta = document.querySelector(".bottone.linguetta");
 const frecciaDestra = document.querySelector(".right-arrow");
 const frecciaSinistra = document.querySelector(".left-arrow");
 const testo = document.querySelector(".text");
+const chat = document.querySelector(".chat");
 
 //variabili per il drag del bottone
 let isDragging = false;
@@ -102,7 +103,11 @@ bottone.addEventListener("pointerup", function(e) {
                 bottone.style.right = "20px";
             }
             return;
-        } else {}
+        } else {
+            //comparsa della chat
+            chat.style.display = "flex";
+            bottone.style.display = "none";
+        }
     }
 
     isDragging=false;
@@ -135,7 +140,7 @@ bottone.addEventListener("pointerup", function(e) {
 //da qui parte il codice della gestione della chat
 
 const chatInput = document.querySelector(".chat-input");
-const chatContainer = document.querySelector(".chat-container");
+const closeButton = document.querySelector(".close-button");
 
 chatInput.addEventListener("input", function() {
     chatInput.rows = 1;
@@ -145,3 +150,14 @@ chatInput.addEventListener("input", function() {
 
     chatInput.rows = Math.min(righe, 5);
 });
+
+closeButton.addEventListener("click",function() {
+    const posX = chat.style.right;
+    const posY = chat.style.bottom;
+
+    chat.style.display = "none";
+    bottone.style.display = "flex";
+
+    bottone.style.right = posX;
+    bottone.style.bottom = posY;
+})
