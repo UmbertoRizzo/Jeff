@@ -232,7 +232,7 @@ body {
     transition: transform 0,6s ease ;
 }
 
-.minimize-button {
+.ricarica-chat {
     display: flex;
     align-items: center;
 
@@ -247,7 +247,7 @@ body {
     color: var(--secondary-color);
     font-family: var(--font-family);
     font-size: 16px;
-    font-weight: 800;
+    font-weight: 700;
     cursor: default;
     position: absolute;
     top: auto; 
@@ -256,6 +256,7 @@ body {
     -webkit-appearance: none;
     box-shadow: var(--shadow);
 }
+
 .minimize-button:hover {
     transform: scale(1.05);
     transition: transform 0,6s ease;
@@ -270,6 +271,38 @@ mask-image: linear-gradient(
     transparent 100%
 );
 }
+
+.chat-messages {
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    width: fit-content;
+    max-width: 60%;
+    height: fit-content;
+    text-align: left;
+}
+
+.user-message {
+
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: var(--shadow);
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    width: fit-content;
+    max-width: 60%;
+    height: fit-content;
+    text-align: left;
+}
+
+
+
 
 
 

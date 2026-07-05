@@ -139,9 +139,10 @@ bottone.addEventListener("pointerup", function(e) {
 });
 
 //da qui parte il codice della gestione della chat
-
+const sendButton = document.querySelector(".send-button")
 const chatInput = document.querySelector(".chat-input");
 const closeButton = document.querySelector(".close-button");
+const chatMessages = document.querySelector(".chat-messages")
 
 chatInput.addEventListener("input", function() {
     chatInput.rows = 1;
@@ -161,4 +162,16 @@ closeButton.addEventListener("click",function() {
 
     bottone.style.right = posX;
     bottone.style.bottom = posY;
+})
+
+sendButton.addEventListener("click",function() {
+    const sentText = chatInput.value.trim()
+    const userMessage = document.createElement("div")
+    if (sentText===""){
+        return;
+    }
+    userMessage.classList.add("user-message")
+    userMessage.textContent = sentText
+    chatMessages.appendChild(userMessage)
+    chatInput.value = "";
 })
