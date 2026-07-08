@@ -282,7 +282,7 @@ mask-image: linear-gradient(
     width: fit-content;
     max-width: 80%;
     height: fit-content;
-    text-align: center;
+    text-align: left;
     overflow-wrap: break-word;
     white-space: pre-wrap;
     align-self: flex-end;

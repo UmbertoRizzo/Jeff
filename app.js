@@ -174,4 +174,5 @@ sendButton.addEventListener("click",function() {
     userMessage.textContent = sentText
     chatMessages.appendChild(userMessage)
     chatInput.value = "";
+    chatInput.rows = 1;
 })
