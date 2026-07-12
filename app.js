@@ -179,7 +179,7 @@ sendButton.addEventListener("click", async function() {
     chatInput.rows = 1;
 
     try {
-        const response = await fetch("http://localhost:3000/chat", {
+        const response = await fetch("https://jeff-b2gq.onrender.com", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
