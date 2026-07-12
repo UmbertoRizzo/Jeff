@@ -163,16 +163,51 @@ closeButton.addEventListener("click",function() {
     bottone.style.right = posX;
     bottone.style.bottom = posY;
 })
+sendButton.addEventListener("click", async function() {
+    const sentText = chatInput.value.trim();
+    const userMessage = document.createElement("div");
 
-sendButton.addEventListener("click",function() {
-    const sentText = chatInput.value.trim()
-    const userMessage = document.createElement("div")
-    if (sentText===""){
+    if (sentText === "") {
         return;
     }
-    userMessage.classList.add("user-message")
-    userMessage.textContent = sentText
-    chatMessages.appendChild(userMessage)
+
+    userMessage.classList.add("user-message");
+    userMessage.textContent = sentText;
+    chatMessages.appendChild(userMessage);
+
     chatInput.value = "";
     chatInput.rows = 1;
-})
+
+    try {
+        const response = await fetch("http://localhost:3000/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                domanda: sentText
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.errore);
+        }
+
+        const botMessage = document.createElement("div");
+        botMessage.classList.add("bot-message");
+        botMessage.textContent = data.risposta;
+        chatMessages.appendChild(botMessage);
+
+    } catch (errore) {
+        console.error(errore);
+
+        const errorMessage = document.createElement("div");
+        errorMessage.classList.add("bot-message");
+        errorMessage.textContent =
+            "Non riesco a contattare il server. Controlla che il backend sia acceso.";
+
+        chatMessages.appendChild(errorMessage);
+    }
+});

@@ -1,0 +1,38 @@
+{
+  
+  "name": "backend",
+  
+  "version": "1.0.0",
+  
+  "description": "",
+  
+  "main": "test-gemini.js",
+  
+"scripts": {
+    "start": "node test-gemini.js"
+},
+  
+  "keywords": [],
+  
+  "author": "",
+  
+  "license": "ISC",
+  
+  "type": "module",
+  
+  "dependencies": {
+  
+    
+  "@google/genai": "^2.11.0",
+  
+    
+  "cors": "^2.8.6",
+  
+    
+  "dotenv": "^17.4.2",
+  
+    
+  "express": "^5.2.1"
+  
+  }
+}
