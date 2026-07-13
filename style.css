@@ -127,12 +127,12 @@ body {
 
     align-items: flex-end;
 
-    position: sticky;
-    bottom: var(--position-bottom);
-    right: var(--position-right);
-    width: 340px;
+    position: static;
+    bottom: 20px;
+    right: 20px;
     height: fit-content;
-    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
 
     background-color: var(--secondary-color);
     opacity: 0.9;
@@ -163,8 +163,7 @@ body {
     color: #000000;
     resize: none;
     overflow-y: auto;
-
-
+    padding-bottom: 10px;
 }
 
 .send-button {
@@ -174,10 +173,11 @@ body {
     color: var(--secondary-color);
     font-family: var(--font-family);
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     cursor: default;
-    align-self: flex-end;   
+    align-self: flex-end;  
+    margin: 5px; 
 }
 
 .send-button:hover{
@@ -185,6 +185,19 @@ body {
     transition: transform 0.6s ease;
 }
 
+.resize-chat {
+    display: flex;
+    position:absolute;
+    top:-10px;
+    left:0px;
+    height: 20px;
+    width: 20px;
+    opacity: 0;
+    background: transparent;
+}
+.resize-chat:hover{
+    cursor:nw-resize;
+}
 .close-button {
     display: flex;
     align-items: center;
@@ -203,7 +216,7 @@ body {
     font-weight: 800;
     cursor: default;
     position: absolute;
-    top: auto; 
+    top: -25px; 
     right: 0px;
     appearance: none;
     -webkit-appearance: none;
@@ -233,7 +246,7 @@ body {
     font-weight: 700;
     cursor: default;
     position: absolute;
-    top: auto; 
+    top: -25px; 
     right: 25px;
     appearance: none;
     -webkit-appearance: none;

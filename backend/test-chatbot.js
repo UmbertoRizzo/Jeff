@@ -37,7 +37,7 @@ app.post("/chat", async function (req, res) {
         console.error(errore);
 
         res.status(500).json({
-            errore: "Errore durante la comunicazione con openAI"
+            errore: "Il servizio non é attualmente disponibile, ci scusiamo per il disagio"
         });
     }
 });

@@ -141,10 +141,12 @@ bottone.addEventListener("pointerup", function(e) {
 
 //da qui parte il codice della gestione della chat
 const sendButton = document.querySelector(".send-button");
+const chatForm = document.querySelector(".chat-form");
 const chatInput = document.querySelector(".chat-input");
 const closeButton = document.querySelector(".close-button");
 const chatMessages = document.querySelector(".chat-messages");
 const ricaricaChat = document.querySelector(".ricarica-chat");
+const resizeChat = document.querySelector(".resize-chat");
 
 //caricamento, salvataggio e ricarica chat
 function salvaChat () {
@@ -180,6 +182,7 @@ function creaIndicatoreScrittura() {
     return typingMessage;
 }
 
+
 chatInput.addEventListener("input", function() {
     chatInput.rows = 1;
 
@@ -187,6 +190,62 @@ chatInput.addEventListener("input", function() {
     const righe = Math.ceil(chatInput.scrollHeight / lineHeight - 1);
 
     chatInput.rows = Math.min(righe, 5);
+});
+
+//fatto da Chat
+let minChatWidth = 0;
+let minChatHeight = 0;
+
+resizeChat.addEventListener("pointerdown", function(event) {
+    event.preventDefault();
+
+    if (minChatWidth === 0 || minChatHeight === 0) {
+        minChatWidth = chat.offsetWidth;
+        minChatHeight = chat.offsetHeight;
+    }
+
+    chat.style.maxHeight = "none";
+    chatMessages.style.maxHeight = "none";
+    chatMessages.style.flex = "none";
+    chatMessages.style.minHeight = "0";
+    resizeChat.setPointerCapture(event.pointerId);
+
+    const startX = event.clientX;
+    const startY = event.clientY;
+    const startWidth = chat.offsetWidth;
+    const startHeight = chat.offsetHeight;
+
+    function aggiornaAltezzaMessaggi(chatHeight) {
+        const chatMessagesStyle = getComputedStyle(chatMessages);
+        const marginBottom = parseFloat(chatMessagesStyle.marginBottom) || 0;
+        const availableHeight = chatHeight - chatForm.offsetHeight - marginBottom;
+
+        chatMessages.style.height = Math.max(0, availableHeight) + "px";
+        chatMessages.style.maxHeight = Math.max(0, availableHeight) + "px";
+    }
+
+    aggiornaAltezzaMessaggi(startHeight);
+
+    function resize(event) {
+        const newWidth = startWidth + (startX - event.clientX);
+        const newHeight = startHeight + (startY - event.clientY);
+        const nextHeight = Math.max(minChatHeight, newHeight);
+
+        chat.style.width = Math.max(minChatWidth, newWidth) + "px";
+        chat.style.height = nextHeight + "px";
+        aggiornaAltezzaMessaggi(nextHeight);
+    }
+
+    function stopResize(event) {
+        resizeChat.releasePointerCapture(event.pointerId);
+        resizeChat.removeEventListener("pointermove", resize);
+        resizeChat.removeEventListener("pointerup", stopResize);
+        resizeChat.removeEventListener("pointercancel", stopResize);
+    }
+
+    resizeChat.addEventListener("pointermove", resize);
+    resizeChat.addEventListener("pointerup", stopResize);
+    resizeChat.addEventListener("pointercancel", stopResize);
 });
 
 
