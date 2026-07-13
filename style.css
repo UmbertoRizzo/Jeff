@@ -118,7 +118,7 @@ body {
     width: 360px;
     height: fit-content;
     max-height: 500px;
-    border-radius: 10px;
+    border-radius: 5px;
     flex-direction: column;
 }
 
@@ -272,7 +272,6 @@ mask-image: linear-gradient(
     font-weight: 500;
     font-size: 16px;
     margin-bottom: 10px;
-    border-radius: 30px;
     width: 100%;
     height: fit-content;
     max-height: 450px;
