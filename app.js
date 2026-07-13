@@ -192,7 +192,7 @@ sendButton.addEventListener("click", async function() {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.errore);
+            throw new Error(data.errore || `Errore HTTP ${response.status}`);
         }
 
         const botMessage = document.createElement("div");
@@ -201,13 +201,11 @@ sendButton.addEventListener("click", async function() {
         chatMessages.appendChild(botMessage);
 
     } catch (errore) {
-        console.error(errore);
+        console.error("errore completo:", errore);
 
         const errorMessage = document.createElement("div");
         errorMessage.classList.add("bot-message");
-        errorMessage.textContent =
-            "Non riesco a contattare il server. Controlla che il backend sia acceso.";
-
+        errorMessage.textContent = errore.message;
         chatMessages.appendChild(errorMessage);
     }
 });
