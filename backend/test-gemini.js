@@ -25,7 +25,7 @@ app.post("/chat", async function (req, res) {
 
     try {
         const interaction = await ai.interactions.create({
-            model: "gemini-3.5-flash",
+            model: "gemini-2.5-flash",
             input: domanda
         });
 
