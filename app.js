@@ -204,7 +204,11 @@ function aggiornaAltezzaMessaggiRidimensionata() {
 
     const chatMessagesStyle = getComputedStyle(chatMessages);
     const marginBottom = parseFloat(chatMessagesStyle.marginBottom) || 0;
-    const availableHeight = chat.offsetHeight - chatForm.offsetHeight - marginBottom;
+    const chatStyle = getComputedStyle(chat);
+    const paddingTop = parseFloat(chatStyle.paddingTop) || 0;
+    const paddingBottom = parseFloat(chatStyle.paddingBottom) || 0;
+
+    const availableHeight = chat.clientHeight - paddingTop - paddingBottom - chatForm.offsetHeight - marginBottom;
 
     chatMessages.style.height = Math.max(0, availableHeight) + "px";
     chatMessages.style.maxHeight = Math.max(0, availableHeight) + "px";
