@@ -35,7 +35,7 @@ body {
     width: var(--dimension);
     border-radius: 50%;
     border: none;
-    box-shadow: var(--primary-shadow);
+    box-shadow: var(--secondary-shadow);
     transition: right 0.6s ease, bottom 0.6s ease, width 0.25s ease, height 0.25s ease, border-radius 0.25s ease, transform 0.6s ease, box-shadow 0.6s ease, opacity 0.6s ease;
 
     position: fixed;
@@ -47,7 +47,7 @@ body {
 }
 
 .bottone:hover {
-    box-shadow: var(--primary-shadow);
+    box-shadow: var(--secondary-shadow);
     transform: scale(1.05);
 }
 
@@ -305,7 +305,7 @@ mask-image: linear-gradient(
 .bot-message {
     background-color: var(--primary-color);
     color: var(--text-color);
-    box-shadow: var(--primary-shadow);
+    box-shadow: var(--secondary-shadow);
     font-family: var(--font-family);
     font-weight: 500;
     font-size: 16px;
