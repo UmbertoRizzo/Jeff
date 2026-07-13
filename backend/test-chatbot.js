@@ -1,10 +1,11 @@
 import "dotenv/config"
 import express from "express"
 import cors from "cors"
-import { GoogleGenAI } from "@google/genai";
-
+import OpenAI from "openai"
 const app = express ();
-const ai = new GoogleGenAI({});
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
 const porta = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -24,19 +25,19 @@ app.post("/chat", async function (req, res) {
     }
 
     try {
-        const interaction = await ai.interactions.create({
-            model: "gemini-3.5-flash",
+        const response = await openai.responses.create({
+            model: "gpt-5-nano",
             input: domanda
         });
 
         res.json({
-            risposta: interaction.output_text
+            risposta: response.output_text
         });
     } catch (errore) {
         console.error(errore);
 
         res.status(500).json({
-            errore: "Errore durante la comunicazione con Gemini"
+            errore: "Errore durante la comunicazione con openAI"
         });
     }
 });
@@ -46,17 +47,17 @@ app.listen(porta, function () {
 });
 
 
-/*controllo per vedere se si collega correttamente: da terminale in backend scrivere node test-gemini.js
+/*controllo per vedere se si collega correttamente: da terminale in backend scrivere node test-chatbot.js
 async function main() {
     try {
-        const interaction = await ai.interactions.create({
-            model: "gemini-3.5-flash",
+        const interaction = await openai.responses.create({
+            model: "gpt-5-nano",
             input: "Explain how AI works in a few words",
         });
 
         console.log(interaction.output_text);
     } catch (errore) {
-        console.error("Errore nella chiamata a Gemini:");
+        console.error("Errore nella chiamata a OpenAI:");
         console.error(errore);
     }
 }

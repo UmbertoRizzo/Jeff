@@ -105,6 +105,7 @@ bottone.addEventListener("pointerup", function(e) {
             return;
         } else {
             //comparsa della chat
+            caricaChat(); //questa funzione è scritta assieme a carica, salva e ricarica
             chat.style.display = "flex";
             bottone.style.display = "none";
         }
@@ -139,10 +140,45 @@ bottone.addEventListener("pointerup", function(e) {
 });
 
 //da qui parte il codice della gestione della chat
-const sendButton = document.querySelector(".send-button")
+const sendButton = document.querySelector(".send-button");
 const chatInput = document.querySelector(".chat-input");
 const closeButton = document.querySelector(".close-button");
-const chatMessages = document.querySelector(".chat-messages")
+const chatMessages = document.querySelector(".chat-messages");
+const ricaricaChat = document.querySelector(".ricarica-chat");
+
+//caricamento, salvataggio e ricarica chat
+function salvaChat () {
+    localStorage.setItem("messaggiSalvati", chatMessages.innerHTML);
+}
+function caricaChat() {
+    const messaggiSalvati =localStorage.getItem("messaggiSalvati");
+
+    if (messaggiSalvati) {
+        chatMessages.innerHTML = messaggiSalvati;
+    }
+}
+ricaricaChat.addEventListener("click", function (){
+    localStorage.removeItem("messaggiSalvati");
+    chatMessages.innerHTML = '<div class = "bot-message">Ciao a tutti, io sono Jeff. Come posso aiutarti?</div>';
+    salvaChat();
+})
+
+
+
+//Funzione scritta da ChatGPT
+function creaIndicatoreScrittura() {
+    const typingMessage = document.createElement("div");
+    typingMessage.classList.add("bot-message", "typing-message");
+    typingMessage.setAttribute("aria-label", "Jeff sta scrivendo");
+
+    for (let i = 0; i < 3; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("typing-dot");
+        typingMessage.appendChild(dot);
+    }
+
+    return typingMessage;
+}
 
 chatInput.addEventListener("input", function() {
     chatInput.rows = 1;
@@ -152,6 +188,7 @@ chatInput.addEventListener("input", function() {
 
     chatInput.rows = Math.min(righe, 5);
 });
+
 
 closeButton.addEventListener("click",function() {
     const posX = chat.style.right;
@@ -163,9 +200,12 @@ closeButton.addEventListener("click",function() {
     bottone.style.right = posX;
     bottone.style.bottom = posY;
 })
+
+
 sendButton.addEventListener("click", async function() {
     const sentText = chatInput.value.trim();
     const userMessage = document.createElement("div");
+    let typingMessage;
 
     if (sentText === "") {
         return;
@@ -174,9 +214,14 @@ sendButton.addEventListener("click", async function() {
     userMessage.classList.add("user-message");
     userMessage.textContent = sentText;
     chatMessages.appendChild(userMessage);
+    salvaChat();
 
     chatInput.value = "";
     chatInput.rows = 1;
+
+    typingMessage = creaIndicatoreScrittura();
+    chatMessages.appendChild(typingMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
     try {
         const response = await fetch("https://jeff-b2gq.onrender.com/chat", {
@@ -195,17 +240,26 @@ sendButton.addEventListener("click", async function() {
             throw new Error(data.errore || `Errore HTTP ${response.status}`);
         }
 
+        typingMessage.remove();
+
         const botMessage = document.createElement("div");
         botMessage.classList.add("bot-message");
         botMessage.textContent = data.risposta;
         chatMessages.appendChild(botMessage);
+        salvaChat();
+        chatMessages.scrollTop = chatMessages.scrollHeight;
 
     } catch (errore) {
         console.error("errore completo:", errore);
+
+        if (typingMessage) {
+            typingMessage.remove();
+        }
 
         const errorMessage = document.createElement("div");
         errorMessage.classList.add("bot-message");
         errorMessage.textContent = errore.message;
         chatMessages.appendChild(errorMessage);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 });

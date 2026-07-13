@@ -6,11 +6,14 @@
   
   "description": "",
   
-  "main": "test-gemini.js",
+  "main": "test-chatbot.js",
   
-"scripts": {
-    "start": "node test-gemini.js"
-},
+  "scripts": {
+  
+    
+  "start": "node test-chatbot.js"
+  
+  },
   
   "keywords": [],
   
@@ -32,7 +35,10 @@
   "dotenv": "^17.4.2",
   
     
-  "express": "^5.2.1"
+  "express": "^5.2.1",
+  
+    
+  "openai": "^6.46.0"
   
   }
 }
