@@ -9,6 +9,9 @@
     const baseUrl = currentScript && currentScript.src
         ? new URL(".", currentScript.src).href
         : "https://umbertorizzo.github.io/Jeff/";
+    const cacheBuster = currentScript && currentScript.src
+        ? new URL(currentScript.src).search
+        : "";
 
     function loadStylesheet(href) {
         const existingLink = document.querySelector(`link[href="${href}"]`);
@@ -58,14 +61,14 @@
 
     function loadAppScript() {
         const script = document.createElement("script");
-        script.src = `${baseUrl}app.js`;
+        script.src = `${baseUrl}app.js${cacheBuster}`;
         document.body.appendChild(script);
     }
 
     function initWidget() {
         loadStylesheet("https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&display=swap")
         loadStylesheet("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap");
-        loadStylesheet(`${baseUrl}style.css`);
+        loadStylesheet(`${baseUrl}style.css${cacheBuster}`);
         insertWidgetHtml();
         loadAppScript();
     }
