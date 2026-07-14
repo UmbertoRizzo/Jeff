@@ -171,9 +171,18 @@ body {
 }
 
 .send-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--primary-color);
     border: none;
-    text-align: right;
+    width: 30px;
+    height: 30px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0;
+    text-align: center;
+    line-height: 1;
     color: var(--secondary-color);
     font-family: var(--font-family);
     border-radius: 50%;
@@ -182,6 +191,9 @@ body {
     cursor: default;
     align-self: flex-end;  
     margin: 3px; 
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
     
 }
 
@@ -374,7 +386,6 @@ mask-image: linear-gradient(
     }
 }
 /*scritto con ChatGPT*/
-
 
 
 
