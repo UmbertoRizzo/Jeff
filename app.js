@@ -4,6 +4,14 @@ const frecciaDestra = document.querySelector(".right-arrow");
 const frecciaSinistra = document.querySelector(".left-arrow");
 const testo = document.querySelector(".text");
 const chat = document.querySelector(".chat");
+const chatInner = document.querySelector(".chat-inner");
+const sendButton = document.querySelector(".send-button");
+const chatForm = document.querySelector(".chat-form");
+const chatInput = document.querySelector(".chat-input");
+const closeButton = document.querySelector(".close-button");
+const chatMessages = document.querySelector(".chat-messages");
+const ricaricaChat = document.querySelector(".ricarica-chat");
+const resizeChat = document.querySelector(".resize-chat");
 
 //variabili per il drag del bottone
 let isDragging = false;
@@ -107,6 +115,7 @@ bottone.addEventListener("pointerup", function(e) {
             //comparsa della chat
             caricaChat(); //questa funzione è scritta assieme a carica, salva e ricarica
             chat.style.display = "flex";
+            requestAnimationFrame(aggiornaAltezzaMessaggiRidimensionata);
             bottone.style.display = "none";
         }
         opacizzaBottone();
@@ -140,13 +149,7 @@ bottone.addEventListener("pointerup", function(e) {
 });
 
 //da qui parte il codice della gestione della chat
-const sendButton = document.querySelector(".send-button");
-const chatForm = document.querySelector(".chat-form");
-const chatInput = document.querySelector(".chat-input");
-const closeButton = document.querySelector(".close-button");
-const chatMessages = document.querySelector(".chat-messages");
-const ricaricaChat = document.querySelector(".ricarica-chat");
-const resizeChat = document.querySelector(".resize-chat");
+
 
 //caricamento, salvataggio e ricarica chat
 function salvaChat () {
@@ -221,17 +224,17 @@ function impostaDimensioniChat(width, height) {
 }
 
 function aggiornaAltezzaMessaggiRidimensionata() {
-    if (!chat.style.height || chat.style.height === "fit-content") {
+    if (chat.offsetHeight === 0) {
         return;
     }
 
     const chatMessagesStyle = getComputedStyle(chatMessages);
     const marginBottom = parseFloat(chatMessagesStyle.marginBottom) || 0;
-    const chatStyle = getComputedStyle(chat);
-    const paddingTop = parseFloat(chatStyle.paddingTop) || 0;
-    const paddingBottom = parseFloat(chatStyle.paddingBottom) || 0;
+    const chatInnerStyle = getComputedStyle(chatInner);
+    const paddingTop = parseFloat(chatInnerStyle.paddingTop) || 0;
+    const paddingBottom = parseFloat(chatInnerStyle.paddingBottom) || 0;
 
-    const availableHeight = chat.clientHeight - paddingTop - paddingBottom - chatForm.offsetHeight - marginBottom;
+    const availableHeight = chatInner.clientHeight - paddingTop - paddingBottom - chatForm.offsetHeight - marginBottom;
 
     chatMessages.style.height = Math.max(0, availableHeight) + "px";
     chatMessages.style.maxHeight = Math.max(0, availableHeight) + "px";

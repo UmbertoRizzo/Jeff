@@ -23,6 +23,9 @@ body {
     --position-right: 20px;
     --position-bottom: 40px;
     --dimension: calc(6vmin + 70px);
+    --chat-frame-padding: 18px;
+    --chat-control-space: 34px;
+    --chat-message-padding: 16px;
 }
 
 .bottone {
@@ -109,6 +112,7 @@ body {
 
 .chat {
     display: none;
+    flex-direction: column;
 
     background-color: rgba(103, 103, 103, 0);
     backdrop-filter: blur(6px);
@@ -116,14 +120,26 @@ body {
     position: fixed;
     right: 20px;
     bottom: 40px;
-    width: 360px;
-    height: fit-content;
+    width: 396px;
+    height: auto;
     max-height: 500px;
-/*    border: 1px var(--primary-color) solid;*/
     border-radius: 20px;
-    flex-direction: column;
-    padding: 1px;
+    padding: var(--chat-frame-padding);
+    box-sizing: border-box;
+    overflow: visible;
     touch-action: pan-y;
+}
+
+.chat-inner {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    min-height: 0;
+    padding-top: var(--chat-control-space);
+    border-radius: 20px;
 }
 
 .chat-form {
@@ -144,6 +160,7 @@ body {
     -webkit-backdrop-filter: blur(2px);
 
     border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #636363;
     border-radius: 20px;
 
 }
@@ -211,8 +228,8 @@ body {
     align-items: center;
     justify-content: center;
     position:absolute;
-    top:-10px;
-    left:-13px;
+    top: 7px;
+    left: 10px;
     height: 20px;
     width: 20px;
     background: transparent;
@@ -244,8 +261,8 @@ body {
     font-weight: 800;
     cursor: default;
     position: absolute;
-    top: -25px; 
-    right: 15px;
+    top: 7px; 
+    right: 10px;
     appearance: none;
     -webkit-appearance: none;
     box-shadow: var(--secondary-shadow);
@@ -274,8 +291,8 @@ body {
     font-weight: 700;
     cursor: default;
     position: absolute;
-    top: -25px; 
-    right: 40px;
+    top: 7px; 
+    right: 36px;
     appearance: none;
     -webkit-appearance: none;
     box-shadow: var(--secondary-shadow);
@@ -303,12 +320,13 @@ mask-image: linear-gradient(
     width: 100%;
     height: fit-content;
     max-height: 450px;
+    padding: var(--chat-message-padding);
+    box-sizing: border-box;
     text-align: left;
     display: flex;
     flex-direction: column; 
     overflow-y: auto;
     border-radius: 20px;
-
 }
 
 .user-message {
@@ -390,5 +408,3 @@ mask-image: linear-gradient(
     }
 }
 /*scritto con ChatGPT*/
-
-

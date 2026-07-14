@@ -39,22 +39,24 @@
             </button>
 
             <section class="chat">
-                <button class="resize-chat">
-                    <span>╔</span>
-                </button>
-                <button class="ricarica-chat">
-                    <span>↻</span>
-                </button>
-                <button class="close-button">
-                    -
-                </button>
-                <div class="chat-messages">
-                    <div class="bot-message">Ciao a tutti, io sono Jeff. Come posso aiutarti?</div>
-                </div>
-                <form class="chat-form">
-                    <textarea class="chat-input" rows="1" type="text"></textarea>
-                    <button class="send-button" type="button">➤</button>
-                </form>
+                <section class="chat-inner">
+                    <button class="resize-chat">
+                        <span>╔</span>
+                    </button>
+                    <button class="ricarica-chat">
+                        <span>↻</span>
+                    </button>
+                    <button class="close-button">
+                        -
+                    </button>
+                    <div class="chat-messages">
+                        <div class="bot-message">Ciao a tutti, io sono Jeff. Come posso aiutarti?</div>
+                    </div>
+                    <form class="chat-form">
+                        <textarea class="chat-input" rows="1" type="text"></textarea>
+                        <button class="send-button" type="button">➤</button>
+                    </form>
+                </section>
             </section>
         `);
     }
