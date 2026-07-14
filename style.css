@@ -111,7 +111,7 @@ body {
     display: none;
 
     background-color: rgba(103, 103, 103, 0);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
 
     position: fixed;
     right: 20px;
