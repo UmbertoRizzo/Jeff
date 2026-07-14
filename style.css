@@ -1,4 +1,4 @@
-/*
+
 body {
     font-family: Tahoma, sans-serif;
     background-color: #ffffff;
@@ -12,20 +12,22 @@ body {
     background-size: 40px 40px;
     background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
 }
-*/
+
 :root {
     --primary-color: #c71e32;
     --secondary-color: #f5f5f5;
     --text-color: #ffffff;
-    --primary-shadow: 0px 0px 15px 3px rgba(21, 21, 21, 0.241);
-    --secondary-shadow: 0px 0px 15px 5px #7a7a7a29;
+    --primary-shadow: 0px 0px 11px 3px rgba(21, 21, 21, 0.241);
+    --secondary-shadow: 0px 0px 11px 5px #7a7a7a29;
     --font-family: "Titillium Web", Arial, sans-serif;
     --position-right: 20px;
     --position-bottom: 40px;
     --dimension: calc(6vmin + 70px);
-    --chat-frame-padding: 18px;
-    --chat-control-space: 34px;
-    --chat-message-padding: 16px;
+    --chat-blur: 6px;
+    --chat-blur-top-size: 28px;
+    --chat-message-fade-size: 12px;
+    --chat-blur-side-size: 12px;
+    --chat-radius: 20px;
 }
 
 .bottone {
@@ -112,34 +114,181 @@ body {
 
 .chat {
     display: none;
-    flex-direction: column;
 
     background-color: rgba(103, 103, 103, 0);
-    backdrop-filter: blur(6px);
 
     position: fixed;
     right: 20px;
     bottom: 40px;
-    width: 396px;
-    height: auto;
+    width: 360px;
+    height: fit-content;
     max-height: 500px;
-    border-radius: 20px;
-    padding: var(--chat-frame-padding);
+/*    border: 1px var(--primary-color) solid;*/
+    border-radius: var(--chat-radius);
+    flex-direction: column;
+    padding: 0 4px 0px 4px;
     box-sizing: border-box;
     overflow: visible;
     touch-action: pan-y;
+    isolation: isolate;
 }
 
-.chat-inner {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    min-height: 0;
-    padding-top: var(--chat-control-space);
-    border-radius: 20px;
+.chat-blur-base,
+.chat-blur-gradient,
+.chat-blur-gradient > span {
+    position: absolute;
+    pointer-events: none;
+}
+
+.chat-blur-base {
+    top: var(--chat-blur-top-size);
+    right: var(--chat-blur-side-size);
+    bottom: 0;
+    left: var(--chat-blur-side-size);
+    z-index: 0;
+    backdrop-filter: blur(var(--chat-blur));
+    -webkit-backdrop-filter: blur(var(--chat-blur));
+}
+
+.chat-blur-gradient {
+    z-index: 0;
+    overflow: hidden;
+}
+
+.chat-blur-gradient > span {
+    inset: 0;
+    backdrop-filter: blur(var(--layer-blur));
+    -webkit-backdrop-filter: blur(var(--layer-blur));
+    mask-image: linear-gradient(
+        var(--blur-direction),
+        transparent var(--layer-start),
+        black var(--layer-solid-start),
+        black var(--layer-solid-end),
+        transparent var(--layer-end)
+    );
+    -webkit-mask-image: linear-gradient(
+        var(--blur-direction),
+        transparent var(--layer-start),
+        black var(--layer-solid-start),
+        black var(--layer-solid-end),
+        transparent var(--layer-end)
+    );
+}
+
+.chat-blur-gradient > span:nth-child(1) {
+    --layer-blur: calc(var(--chat-blur) * 0.28);
+    --layer-start: 0%;
+    --layer-solid-start: 16.667%;
+    --layer-solid-end: 33.333%;
+    --layer-end: 50%;
+    z-index: 1;
+}
+
+.chat-blur-gradient > span:nth-child(2) {
+    --layer-blur: calc(var(--chat-blur) * 0.48);
+    --layer-start: 16.667%;
+    --layer-solid-start: 33.333%;
+    --layer-solid-end: 50%;
+    --layer-end: 66.667%;
+    z-index: 2;
+}
+
+.chat-blur-gradient > span:nth-child(3) {
+    --layer-blur: calc(var(--chat-blur) * 0.66);
+    --layer-start: 33.333%;
+    --layer-solid-start: 50%;
+    --layer-solid-end: 66.667%;
+    --layer-end: 83.333%;
+    z-index: 3;
+}
+
+.chat-blur-gradient > span:nth-child(4) {
+    --layer-blur: calc(var(--chat-blur) * 0.82);
+    --layer-start: 50%;
+    --layer-solid-start: 66.667%;
+    --layer-solid-end: 83.333%;
+    --layer-end: 100%;
+    z-index: 4;
+}
+
+.chat-blur-gradient > span:nth-child(5) {
+    --layer-blur: calc(var(--chat-blur) * 0.94);
+    --layer-start: 66.667%;
+    --layer-solid-start: 83.333%;
+    --layer-solid-end: 91.667%;
+    --layer-end: 100%;
+    z-index: 5;
+}
+
+.chat-blur-gradient > span:nth-child(6) {
+    --layer-blur: var(--chat-blur);
+    z-index: 6;
+    mask-image: linear-gradient(
+        var(--blur-direction),
+        transparent 83.333%,
+        black 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        var(--blur-direction),
+        transparent 83.333%,
+        black 100%
+    );
+}
+
+.chat-blur-top {
+    top: 0;
+    left: var(--chat-blur-side-size);
+    right: var(--chat-blur-side-size);
+    height: var(--chat-blur-top-size);
+    --blur-direction: to bottom;
+}
+
+.chat-blur-left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--chat-blur-side-size);
+    border-radius: var(--chat-radius) 0 0 var(--chat-radius);
+    --blur-direction: to right;
+}
+
+.chat-blur-right {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--chat-blur-side-size);
+    border-radius: 0 var(--chat-radius) var(--chat-radius) 0;
+    --blur-direction: to left;
+}
+
+.chat-blur-left > span:nth-child(1),
+.chat-blur-right > span:nth-child(1) {
+    --layer-blur: calc(var(--chat-blur) * 0.08);
+}
+
+.chat-blur-left > span:nth-child(2),
+.chat-blur-right > span:nth-child(2) {
+    --layer-blur: calc(var(--chat-blur) * 0.16);
+}
+
+.chat-blur-left > span:nth-child(3),
+.chat-blur-right > span:nth-child(3) {
+    --layer-blur: calc(var(--chat-blur) * 0.28);
+}
+
+.chat-blur-left > span:nth-child(4),
+.chat-blur-right > span:nth-child(4) {
+    --layer-blur: calc(var(--chat-blur) * 0.42);
+}
+
+.chat-blur-left > span:nth-child(5),
+.chat-blur-right > span:nth-child(5) {
+    --layer-blur: calc(var(--chat-blur) * 0.60);
+}
+
+.chat-blur-left > span:nth-child(6),
+.chat-blur-right > span:nth-child(6) {
+    --layer-blur: calc(var(--chat-blur) * 0.78);
 }
 
 .chat-form {
@@ -147,9 +296,7 @@ body {
 
     align-items: flex-end;
 
-    position: static;
-    bottom: 20px;
-    right: 20px;
+    position: relative;
     height: fit-content;
     width: 100%;
     box-sizing: border-box;
@@ -160,8 +307,9 @@ body {
     -webkit-backdrop-filter: blur(2px);
 
     border-top: 1px solid #ffffff;
-    border-bottom: 1px solid #636363;
+    border-bottom: 1px solid #a8a8a8;
     border-radius: 20px;
+    z-index: 2;
 
 }
 
@@ -228,8 +376,8 @@ body {
     align-items: center;
     justify-content: center;
     position:absolute;
-    top: 7px;
-    left: 10px;
+    top: 0px;
+    left: 0px;
     height: 20px;
     width: 20px;
     background: transparent;
@@ -238,6 +386,7 @@ body {
     font-weight: 1500;
     border: none;
     color: var(--primary-color);
+    z-index: 3;
 
 }
 .resize-chat:hover{
@@ -266,6 +415,7 @@ body {
     appearance: none;
     -webkit-appearance: none;
     box-shadow: var(--secondary-shadow);
+    z-index: 3;
 }
 
 .close-button:hover{
@@ -296,6 +446,7 @@ body {
     appearance: none;
     -webkit-appearance: none;
     box-shadow: var(--secondary-shadow);
+    z-index: 3;
 }
 
 .ricarica-chat:hover {
@@ -303,30 +454,31 @@ body {
     transition: transform 0.6s ease;
 }
 
-.messaggi {
-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    black 32px,
-    black calc(100% - 32px),
-    transparent 100%
-);
-}
-
 .chat-messages {
     font-weight: 500;
     font-size: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     width: 100%;
     height: fit-content;
     max-height: 450px;
-    padding: var(--chat-message-padding);
     box-sizing: border-box;
     text-align: left;
     display: flex;
     flex-direction: column; 
     overflow-y: auto;
-    border-radius: 20px;
+    position: relative;
+    z-index: 1;
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0 var(--chat-blur-top-size),
+        black calc(var(--chat-blur-top-size) + var(--chat-message-fade-size))
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0 var(--chat-blur-top-size),
+        black calc(var(--chat-blur-top-size) + var(--chat-message-fade-size))
+    );
+
 }
 
 .user-message {
@@ -338,6 +490,7 @@ mask-image: linear-gradient(
     font-size: 16px;
     padding: 10px 15px;
     margin-bottom: 10px;
+    margin-right: 12px;
     border-radius: 20px;
     width: fit-content;
     max-width: 80%;
@@ -346,6 +499,7 @@ mask-image: linear-gradient(
     overflow-wrap: break-word;
     white-space: pre-wrap;
     align-self: flex-end;
+
 }
 
 .bot-message {
@@ -357,6 +511,7 @@ mask-image: linear-gradient(
     font-size: 16px;
     padding: 10px 15px;
     margin-bottom: 10px;
+    margin-left: 12px;
     border-radius: 20px;
     width: fit-content;
     max-width: 80%;

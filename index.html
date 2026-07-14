@@ -17,25 +17,35 @@
         </button>
 
         <section class="chat">
-            <section class = "chat-inner">
-                <button class = "resize-chat">
-                    <span>╔</span>
-                </button>
-                <button class="ricarica-chat">
-                    <span>↻</span>
-                </button>
-                <button class="close-button">
-                    -
-                </button>
-                <div class="chat-messages">
-                    <div class="bot-message">Ciao a tutti, io sono Jeff. Come posso aiutarti?</div>
-                </div>
-                <form class="chat-form">
-                    <textarea class="chat-input" rows="1" type="text"></textarea>
-                    <button class="send-button" type="button">➤</button>
-                </form>
-            </section>
+            <div class="chat-blur-base" aria-hidden="true"></div>
+            <div class="chat-blur-gradient chat-blur-top" aria-hidden="true">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+            <div class="chat-blur-gradient chat-blur-left" aria-hidden="true">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+            <div class="chat-blur-gradient chat-blur-right" aria-hidden="true">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+            <button class = "resize-chat">
+                <span>╔</span>
+            </button>
+            <button class="ricarica-chat">
+                <span>↻</span>
+            </button>
+            <button class="close-button">
+                -
+            </button>
+            <div class="chat-messages">
+                <div class="bot-message">Ciao a tutti, io sono Jeff. Come posso aiutarti?</div>
+            </div>
+            <form class="chat-form">
+                <textarea class="chat-input" rows="1" type="text"></textarea>
+                <button class="send-button" type="button">➤</button>
+            </form>
         </section>
     </body>
 </html>
-
