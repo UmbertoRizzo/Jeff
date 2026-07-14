@@ -36,7 +36,9 @@
             </button>
 
             <section class="chat">
-                <button class="resize-chat"></button>
+                <button class="resize-chat">
+                    <span>╔</span>
+                </button>
                 <button class="ricarica-chat">
                     <span>↻</span>
                 </button>
