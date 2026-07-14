@@ -63,6 +63,7 @@
     }
 
     function initWidget() {
+        loadStylesheet("https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&display=swap")
         loadStylesheet("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap");
         loadStylesheet(`${baseUrl}style.css`);
         insertWidgetHtml();
