@@ -197,6 +197,29 @@ chatInput.addEventListener("input", function() {
 let minChatWidth = 0;
 let minChatHeight = 0;
 
+function preparaChatRidimensionabile() {
+    if (minChatWidth === 0 || minChatHeight === 0) {
+        minChatWidth = chat.offsetWidth;
+        minChatHeight = chat.offsetHeight;
+    }
+
+    chat.style.width = chat.offsetWidth + "px";
+    chat.style.height = chat.offsetHeight + "px";
+    chat.style.maxHeight = "none";
+    chatMessages.style.maxHeight = "none";
+    chatMessages.style.flex = "none";
+    chatMessages.style.minHeight = "0";
+}
+
+function impostaDimensioniChat(width, height) {
+    const maxWidth = Math.max(minChatWidth, window.innerWidth - 20);
+    const maxHeight = Math.max(minChatHeight, window.innerHeight - 20);
+
+    chat.style.width = Math.min(Math.max(minChatWidth, width), maxWidth) + "px";
+    chat.style.height = Math.min(Math.max(minChatHeight, height), maxHeight) + "px";
+    aggiornaAltezzaMessaggiRidimensionata();
+}
+
 function aggiornaAltezzaMessaggiRidimensionata() {
     if (!chat.style.height || chat.style.height === "fit-content") {
         return;
@@ -222,17 +245,7 @@ resizeChat.addEventListener("pointerdown", function(event) {
     const startWidth = chat.offsetWidth;
     const startHeight = chat.offsetHeight;
 
-    if (minChatWidth === 0 || minChatHeight === 0) {
-        minChatWidth = startWidth;
-        minChatHeight = startHeight;
-    }
-
-    chat.style.width = startWidth + "px";
-    chat.style.height = startHeight + "px";
-    chat.style.maxHeight = "none";
-    chatMessages.style.maxHeight = "none";
-    chatMessages.style.flex = "none";
-    chatMessages.style.minHeight = "0";
+    preparaChatRidimensionabile();
     resizeChat.setPointerCapture(event.pointerId);
 
     aggiornaAltezzaMessaggiRidimensionata();
@@ -240,11 +253,8 @@ resizeChat.addEventListener("pointerdown", function(event) {
     function resize(event) {
         const newWidth = startWidth + (startX - event.clientX);
         const newHeight = startHeight + (startY - event.clientY);
-        const nextHeight = Math.max(minChatHeight, newHeight);
 
-        chat.style.width = Math.max(minChatWidth, newWidth) + "px";
-        chat.style.height = nextHeight + "px";
-        aggiornaAltezzaMessaggiRidimensionata();
+        impostaDimensioniChat(newWidth, newHeight);
     }
 
     function stopResize(event) {
@@ -259,6 +269,46 @@ resizeChat.addEventListener("pointerdown", function(event) {
     resizeChat.addEventListener("pointercancel", stopResize);
 });
 
+chat.addEventListener("touchstart", function(event) {
+    if (event.touches.length !== 2) {
+        return;
+    }
+
+    event.preventDefault();
+    preparaChatRidimensionabile();
+
+    const startWidth = chat.offsetWidth;
+    const startHeight = chat.offsetHeight;
+    const startDistance = distanzaTraTocchi(event.touches);
+
+    function pinchResize(event) {
+        if (event.touches.length !== 2) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const scale = distanzaTraTocchi(event.touches) / startDistance;
+        impostaDimensioniChat(startWidth * scale, startHeight * scale);
+    }
+
+    function stopPinch() {
+        chat.removeEventListener("touchmove", pinchResize);
+        chat.removeEventListener("touchend", stopPinch);
+        chat.removeEventListener("touchcancel", stopPinch);
+    }
+
+    chat.addEventListener("touchmove", pinchResize, { passive: false });
+    chat.addEventListener("touchend", stopPinch);
+    chat.addEventListener("touchcancel", stopPinch);
+}, { passive: false });
+
+function distanzaTraTocchi(touches) {
+    const deltaX = touches[0].clientX - touches[1].clientX;
+    const deltaY = touches[0].clientY - touches[1].clientY;
+
+    return Math.hypot(deltaX, deltaY);
+}
 
 closeButton.addEventListener("click",function() {
     const posX = chat.style.right;

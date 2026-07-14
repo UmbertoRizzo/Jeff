@@ -119,10 +119,11 @@ body {
     width: 360px;
     height: fit-content;
     max-height: 500px;
-    border: 1px var(--primary-color) solid;
+/*    border: 1px var(--primary-color) solid;*/
     border-radius: 20px;
     flex-direction: column;
     padding: 1px;
+    touch-action: pan-y;
 }
 
 .chat-form {
@@ -389,6 +390,5 @@ mask-image: linear-gradient(
     }
 }
 /*scritto con ChatGPT*/
-
 
 
