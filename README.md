@@ -3,3 +3,8 @@
 # Qui si scriverà solo codice per la parte grafica
 #
 # Your site is live at https://umbertorizzo.github.io/Jeff/ 
+#
+# Per far funzionare il widget, disattivare sfondo e  incollare nella console 
+const script = document.createElement("script");
+script.src = "https://umbertorizzo.github.io/Jeff/widget.js?v=" + Date.now();
+document.body.appendChild(script);
