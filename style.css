@@ -211,7 +211,7 @@ body {
     -webkit-backdrop-filter: blur(10px) saturate(1.18) contrast(1.08);
 
     border: 1px solid rgba(255, 255, 255, 0.72);
-    border-radius: 20px;
+    border-radius: 999px;
     box-shadow:
         inset -1px 1px 0 rgba(255, 255, 255, 0.7),
         inset 1px -1px 0 rgba(30, 36, 45, 0.22),
@@ -221,7 +221,7 @@ body {
 
 .chat-input {
     border: none;
-    border-radius: 30px;
+    border-radius: 999px;
     outline: none;
     padding-left: 15px;
 
@@ -292,7 +292,6 @@ body {
     background: transparent;
     font-family: "Noto Sans Symbols 2";
     font-size: 20px;
-    font-weight: 1500;
     border: none;
     color: var(--primary-color);
     cursor: nw-resize;
