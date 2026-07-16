@@ -28,6 +28,7 @@ body {
     --chat-message-fade-end: 36px;
     --chat-message-top-space: 36px;
     --chat-top-controls-space: 38px;
+    --chat-drag-handle-height: 14px;
     --chat-radius: 20px;
 }
 
@@ -154,6 +155,37 @@ body {
         radial-gradient(circle at 85% 12%, rgba(255, 255, 255, 0.32), transparent 22%);
     opacity: 0.65;
     z-index: 0;
+}
+
+.chat::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 64px;
+    height: 4px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.52);
+    box-shadow:
+        inset -1px 1px 0 rgba(255, 255, 255, 0.42),
+        0 1px 3px rgba(30, 36, 45, 0.12);
+    transform: translateX(-50%);
+    cursor: grab;
+    z-index: 2;
+}
+
+.chat:hover::after,
+.chat.dragging-chat::after {
+    background-color: rgba(255, 255, 255, 0.72);
+}
+
+.chat.dragging-chat,
+.chat.dragging-chat::after {
+    cursor: grabbing;
+}
+
+.chat.dragging-chat * {
+    cursor: grabbing;
 }
 
 .chat-form {

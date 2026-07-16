@@ -246,6 +246,57 @@ function aggiornaAltezzaMessaggiRidimensionata() {
     chatMessages.style.maxHeight = Math.max(0, availableHeight) + "px";
 }
 
+function puntoInManigliaChat(event) {
+    if (event.target.closest("button, textarea, input")) {
+        return false;
+    }
+
+    const chatRect = chat.getBoundingClientRect();
+    const chatStyle = getComputedStyle(chat);
+    const altezzaManiglia = parseFloat(chatStyle.getPropertyValue("--chat-drag-handle-height")) || 0;
+
+    return event.clientY >= chatRect.top && event.clientY <= chatRect.top + altezzaManiglia;
+}
+
+chat.addEventListener("pointerdown", function(event) {
+    if (!puntoInManigliaChat(event)) {
+        return;
+    }
+
+    event.preventDefault();
+
+    const margine = 20;
+    const startX = event.clientX;
+    const startY = event.clientY;
+    const startRight = parseFloat(getComputedStyle(chat).right) || 0;
+    const startBottom = parseFloat(getComputedStyle(chat).bottom) || 0;
+
+    chat.classList.add("dragging-chat");
+    chat.setPointerCapture(event.pointerId);
+
+    function trascinaChat(event) {
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+        const maxRight = Math.max(margine, window.innerWidth - chat.offsetWidth - margine);
+        const maxBottom = Math.max(margine, window.innerHeight - chat.offsetHeight - margine);
+
+        chat.style.right = Math.min(Math.max(margine, startRight - deltaX), maxRight) + "px";
+        chat.style.bottom = Math.min(Math.max(margine, startBottom - deltaY), maxBottom) + "px";
+    }
+
+    function fermaTrascinamentoChat(event) {
+        chat.classList.remove("dragging-chat");
+        chat.releasePointerCapture(event.pointerId);
+        chat.removeEventListener("pointermove", trascinaChat);
+        chat.removeEventListener("pointerup", fermaTrascinamentoChat);
+        chat.removeEventListener("pointercancel", fermaTrascinamentoChat);
+    }
+
+    chat.addEventListener("pointermove", trascinaChat);
+    chat.addEventListener("pointerup", fermaTrascinamentoChat);
+    chat.addEventListener("pointercancel", fermaTrascinamentoChat);
+});
+
 resizeChat.addEventListener("pointerdown", function(event) {
     event.preventDefault();
 
