@@ -149,6 +149,15 @@ const chatMessages = document.querySelector(".chat-messages");
 const ricaricaChat = document.querySelector(".ricarica-chat");
 const resizeChat = document.querySelector(".resize-chat");
 
+if (window.matchMedia("(hover: none), (pointer: coarse), (max-width: 640px)").matches) {
+    resizeChat.style.display = "none";
+}
+
+chatInput.style.height = "";
+chatInput.style.minHeight = "";
+chatInput.style.boxShadow = "none";
+chatInput.style.outline = "none";
+
 //caricamento, salvataggio e ricarica chat
 function salvaChat () {
     localStorage.setItem("messaggiSalvati", chatMessages.innerHTML);

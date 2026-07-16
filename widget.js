@@ -10,8 +10,8 @@
         ? new URL(".", currentScript.src).href
         : "https://umbertorizzo.github.io/Jeff/";
     const cacheBuster = currentScript && currentScript.src
-        ? new URL(currentScript.src).search || "?v=20260716"
-        : "?v=20260716";
+        ? new URL(currentScript.src).search || "?v=20260716-3"
+        : "?v=20260716-3";
 
     function loadStylesheet(href) {
         const existingLink = document.querySelector(`link[href="${href}"]`);
