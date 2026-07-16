@@ -526,6 +526,7 @@ body {
     }
 
     .resize-chat {
+        display: none;
         top: 4px;
         left: 4px;
         font-size: 24px;
