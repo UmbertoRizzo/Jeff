@@ -495,7 +495,7 @@ body {
     animation-delay: 0.3s;
 }
 
-@media (pointer: coarse), (max-width: 640px) {
+@media (hover: none), (pointer: coarse), (max-width: 640px) {
     :root {
         --chat-message-top-space: 52px;
         --chat-top-controls-space: 56px;
@@ -526,7 +526,7 @@ body {
     }
 
     .resize-chat {
-        display: none;
+        display: none !important;
         top: 4px;
         left: 4px;
         font-size: 24px;
