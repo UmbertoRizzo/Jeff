@@ -24,7 +24,10 @@ body {
     --position-bottom: 40px;
     --dimension: calc(6vmin + 70px);
     --chat-blur: 5px;
-    --chat-message-fade-size: 14px;
+    --chat-message-fade-start: 14px;
+    --chat-message-fade-end: 36px;
+    --chat-message-top-space: 36px;
+    --chat-top-controls-space: 38px;
     --chat-radius: 20px;
 }
 
@@ -127,7 +130,7 @@ body {
     border-radius: var(--chat-radius);
     flex-direction: column;
     gap: 10px;
-    padding: 38px 12px 12px;
+    padding: var(--chat-top-controls-space) 12px 12px;
     box-sizing: border-box;
     overflow: hidden;
     touch-action: pan-y;
@@ -135,9 +138,9 @@ body {
     backdrop-filter: blur(var(--chat-blur));
     -webkit-backdrop-filter: blur(var(--chat-blur));
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.7),
-        inset 0 -1px 0 rgba(130, 130, 130, 0.16),
-        0 18px 42px rgba(20, 24, 31, 0.22);
+        inset -1px 1px 0 rgba(255, 255, 255, 0.62),
+        inset 1px -1px 0 rgba(30, 36, 45, 0.24),
+        0 10px 28px rgba(20, 24, 31, 0.08);
 }
 
 .chat::before {
@@ -170,9 +173,8 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.64);
     border-radius: 20px;
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.72),
-        inset 0 -1px 0 rgba(120, 120, 120, 0.18),
-        0 8px 20px rgba(20, 24, 31, 0.08);
+        inset -1px 1px 0 rgba(255, 255, 255, 0.58),
+        inset 1px -1px 0 rgba(30, 36, 45, 0.18);
     z-index: 2;
 }
 
@@ -320,6 +322,7 @@ body {
 .chat-messages {
     font-weight: 500;
     font-size: 16px;
+    margin-top: calc(var(--chat-top-controls-space) * -1);
     margin-bottom: 0;
     width: 100%;
     height: fit-content;
@@ -329,24 +332,30 @@ body {
     display: flex;
     flex-direction: column; 
     overflow-y: auto;
-    padding: calc(var(--chat-message-fade-size) + 4px) 2px 0;
+    padding: 0 2px;
     position: relative;
     z-index: 1;
     mask-image: linear-gradient(
         to bottom,
         transparent 0,
-        #000 var(--chat-message-fade-size),
+        transparent var(--chat-message-fade-start),
+        #000 var(--chat-message-fade-end),
         #000 100%
     );
     -webkit-mask-image: linear-gradient(
         to bottom,
         transparent 0,
-        #000 var(--chat-message-fade-size),
+        transparent var(--chat-message-fade-start),
+        #000 var(--chat-message-fade-end),
         #000 100%
     );
     mask-mode: alpha;
     -webkit-mask-mode: alpha;
 
+}
+
+.chat-messages > :first-child {
+    margin-top: var(--chat-message-top-space);
 }
 
 .user-message {

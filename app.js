@@ -197,6 +197,7 @@ chatInput.addEventListener("input", function() {
 //fatto da Chat
 let minChatWidth = 0;
 let minChatHeight = 0;
+let chatRidimensionata = false;
 
 function preparaChatRidimensionabile() {
     if (minChatWidth === 0 || minChatHeight === 0) {
@@ -204,6 +205,7 @@ function preparaChatRidimensionabile() {
         minChatHeight = chat.offsetHeight;
     }
 
+    chatRidimensionata = true;
     chat.style.width = chat.offsetWidth + "px";
     chat.style.height = chat.offsetHeight + "px";
     chat.style.maxHeight = "none";
@@ -226,14 +228,19 @@ function aggiornaAltezzaMessaggiRidimensionata() {
         return;
     }
 
+    if (!chatRidimensionata) {
+        chatMessages.style.height = "";
+        chatMessages.style.maxHeight = "";
+        return;
+    }
+
     const chatMessagesStyle = getComputedStyle(chatMessages);
     const marginBottom = parseFloat(chatMessagesStyle.marginBottom) || 0;
     const chatStyle = getComputedStyle(chat);
-    const paddingTop = parseFloat(chatStyle.paddingTop) || 0;
     const paddingBottom = parseFloat(chatStyle.paddingBottom) || 0;
     const rowGap = parseFloat(chatStyle.rowGap) || 0;
 
-    const availableHeight = chat.clientHeight - paddingTop - paddingBottom - chatForm.offsetHeight - marginBottom - rowGap;
+    const availableHeight = chat.clientHeight - paddingBottom - chatForm.offsetHeight - marginBottom - rowGap;
 
     chatMessages.style.height = Math.max(0, availableHeight) + "px";
     chatMessages.style.maxHeight = Math.max(0, availableHeight) + "px";
