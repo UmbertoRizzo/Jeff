@@ -165,10 +165,11 @@ body {
     width: 64px;
     height: 4px;
     border-radius: 999px;
-    background-color: rgba(255, 255, 255, 0.52);
+    background-color: rgba(30, 36, 45, 0.16);
     box-shadow:
-        inset -1px 1px 0 rgba(255, 255, 255, 0.42),
-        0 1px 3px rgba(30, 36, 45, 0.12);
+        inset 0 1px 0 rgba(255, 255, 255, 0.42),
+        0 1px 4px rgba(255, 255, 255, 0.28),
+        0 1px 2px rgba(30, 36, 45, 0.12);
     transform: translateX(-50%);
     cursor: grab;
     z-index: 2;
@@ -176,7 +177,7 @@ body {
 
 .chat:hover::after,
 .chat.dragging-chat::after {
-    background-color: rgba(255, 255, 255, 0.72);
+    background-color: rgba(30, 36, 45, 0.24);
 }
 
 .chat.dragging-chat,
