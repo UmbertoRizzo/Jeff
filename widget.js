@@ -46,7 +46,7 @@
                     <span>↻</span>
                 </button>
                 <button class="close-button">
-                    -
+                    <span>-</span>
                 </button>
                 <div class="chat-messages">
                     <div class="bot-message">Ciao a tutti, io sono Jeff. Come posso aiutarti?</div>
