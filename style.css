@@ -690,6 +690,10 @@ section.chat {
     margin: 0 0 10px 12px !important;
 }
 
+.chat .chat-messages > :first-child {
+    margin-top: var(--chat-message-top-space) !important;
+}
+
 .chat button.send-button,
 .chat button.resize-chat,
 .chat button.close-button,
