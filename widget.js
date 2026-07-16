@@ -39,19 +39,6 @@
             </button>
 
             <section class="chat">
-                <div class="chat-blur-base" aria-hidden="true"></div>
-                <div class="chat-blur-gradient chat-blur-top" aria-hidden="true">
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
-                </div>
-                <div class="chat-blur-gradient chat-blur-left" aria-hidden="true">
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
-                </div>
-                <div class="chat-blur-gradient chat-blur-right" aria-hidden="true">
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
-                </div>
                 <button class="resize-chat">
                     <span>╔</span>
                 </button>
