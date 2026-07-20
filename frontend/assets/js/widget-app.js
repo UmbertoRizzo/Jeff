@@ -1,9 +1,11 @@
-const bottone = document.querySelector(".bottone");
-const linguetta = document.querySelector(".bottone.linguetta");
-const frecciaDestra = document.querySelector(".right-arrow");
-const frecciaSinistra = document.querySelector(".left-arrow");
-const testo = document.querySelector(".text");
-const chat = document.querySelector(".chat");
+const bottone = document.querySelector(".jeff-button");
+const frecciaDestra = document.querySelector(".jeff-right-arrow");
+const frecciaSinistra = document.querySelector(".jeff-left-arrow");
+const testo = document.querySelector(".jeff-label");
+const chat = document.querySelector(".jeff-chat");
+const jeffConfig = window.JeffWidgetConfig || {};
+const siteId = jeffConfig.siteId || window.location.hostname || "default";
+const storageKey = `jeff:chat:${siteId}`;
 
 //variabili per il drag del bottone
 let isDragging = false;
@@ -13,7 +15,7 @@ let startX=0, startY=0;
 
 
 function mostraBottone() {
-    bottone.classList.remove("linguetta");
+    bottone.classList.remove("jeff-tab", "jeff-tab-right", "jeff-tab-left");
     bottone.style.justifyContent = "center";
     frecciaDestra.style.display = "none";
     frecciaSinistra.style.display = "none";
@@ -21,7 +23,9 @@ function mostraBottone() {
 }
 
 function mostraLinguetta(lato) {
-    bottone.classList.add("linguetta");
+    bottone.classList.add("jeff-tab");
+    bottone.classList.toggle("jeff-tab-right", lato === "destra");
+    bottone.classList.toggle("jeff-tab-left", lato === "sinistra");
     testo.style.display = "none";
 
     if (lato === "destra") {
@@ -41,13 +45,13 @@ function mostraLinguetta(lato) {
 let inactivityTimeout;
 function deopacizzaBottone() {
     clearTimeout(inactivityTimeout);
-    bottone.classList.remove("opaco");
+    bottone.classList.remove("jeff-idle");
 }
 
 function opacizzaBottone() {
     clearTimeout(inactivityTimeout);
     inactivityTimeout = setTimeout(function() {
-        bottone.classList.add("opaco");
+        bottone.classList.add("jeff-idle");
     }, 5000);
 }
 
@@ -94,7 +98,7 @@ bottone.addEventListener("pointerup", function(e) {
         hasdragged = true;
     }
     if (hasdragged===false) {
-        if (bottone.classList.contains("linguetta")) {
+        if (bottone.classList.contains("jeff-tab")) {
             mostraBottone();
             isDragging=false;
             if(e.clientX < window.innerWidth / 2) {
@@ -141,13 +145,13 @@ bottone.addEventListener("pointerup", function(e) {
 });
 
 //da qui parte il codice della gestione della chat
-const sendButton = document.querySelector(".send-button");
-const chatForm = document.querySelector(".chat-form");
-const chatInput = document.querySelector(".chat-input");
-const closeButton = document.querySelector(".close-button");
-const chatMessages = document.querySelector(".chat-messages");
-const ricaricaChat = document.querySelector(".ricarica-chat");
-const resizeChat = document.querySelector(".resize-chat");
+const sendButton = document.querySelector(".jeff-send");
+const chatForm = document.querySelector(".jeff-chat-form");
+const chatInput = document.querySelector(".jeff-chat-input");
+const closeButton = document.querySelector(".jeff-close");
+const chatMessages = document.querySelector(".jeff-chat-messages");
+const ricaricaChat = document.querySelector(".jeff-reset");
+const resizeChat = document.querySelector(".jeff-resize");
 
 if (window.matchMedia("(hover: none), (pointer: coarse), (max-width: 640px)").matches) {
     resizeChat.style.display = "none";
@@ -160,18 +164,22 @@ chatInput.style.outline = "none";
 
 //caricamento, salvataggio e ricarica chat
 function salvaChat () {
-    localStorage.setItem("messaggiSalvati", chatMessages.innerHTML);
+    localStorage.setItem(storageKey, chatMessages.innerHTML);
 }
 function caricaChat() {
-    const messaggiSalvati =localStorage.getItem("messaggiSalvati");
+    const messaggiSalvati = localStorage.getItem(storageKey);
 
     if (messaggiSalvati) {
         chatMessages.innerHTML = messaggiSalvati;
     }
 }
 ricaricaChat.addEventListener("click", function (){
-    localStorage.removeItem("messaggiSalvati");
-    chatMessages.innerHTML = '<div class = "bot-message">Ciao a tutti, io sono Jeff. Come posso aiutarti?</div>';
+    localStorage.removeItem(storageKey);
+    chatMessages.innerHTML = "";
+    const welcomeMessage = document.createElement("div");
+    welcomeMessage.classList.add("jeff-bot-message");
+    welcomeMessage.textContent = jeffConfig.welcomeMessage || "Ciao, io sono Jeff. Come posso aiutarti?";
+    chatMessages.appendChild(welcomeMessage);
     salvaChat();
 })
 
@@ -180,12 +188,12 @@ ricaricaChat.addEventListener("click", function (){
 //Funzione scritta da ChatGPT
 function creaIndicatoreScrittura() {
     const typingMessage = document.createElement("div");
-    typingMessage.classList.add("bot-message", "typing-message");
-    typingMessage.setAttribute("aria-label", "Jeff sta scrivendo");
+    typingMessage.classList.add("jeff-bot-message", "jeff-typing-message");
+    typingMessage.setAttribute("aria-label", `${jeffConfig.assistantName || "Jeff"} sta scrivendo`);
 
     for (let i = 0; i < 3; i++) {
         const dot = document.createElement("span");
-        dot.classList.add("typing-dot");
+        dot.classList.add("jeff-typing-dot");
         typingMessage.appendChild(dot);
     }
 
@@ -280,7 +288,7 @@ chat.addEventListener("pointerdown", function(event) {
     const startRight = parseFloat(getComputedStyle(chat).right) || 0;
     const startBottom = parseFloat(getComputedStyle(chat).bottom) || 0;
 
-    chat.classList.add("dragging-chat");
+    chat.classList.add("jeff-dragging");
     chat.setPointerCapture(event.pointerId);
 
     function trascinaChat(event) {
@@ -294,7 +302,7 @@ chat.addEventListener("pointerdown", function(event) {
     }
 
     function fermaTrascinamentoChat(event) {
-        chat.classList.remove("dragging-chat");
+        chat.classList.remove("jeff-dragging");
         chat.releasePointerCapture(event.pointerId);
         chat.removeEventListener("pointermove", trascinaChat);
         chat.removeEventListener("pointerup", fermaTrascinamentoChat);
@@ -391,7 +399,8 @@ closeButton.addEventListener("click",function() {
 })
 
 
-sendButton.addEventListener("click", async function() {
+chatForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
     const sentText = chatInput.value.trim();
     const userMessage = document.createElement("div");
     let typingMessage;
@@ -400,7 +409,7 @@ sendButton.addEventListener("click", async function() {
         return;
     }
 
-    userMessage.classList.add("user-message");
+    userMessage.classList.add("jeff-user-message");
     userMessage.textContent = sentText;
     chatMessages.appendChild(userMessage);
     salvaChat();
@@ -414,13 +423,15 @@ sendButton.addEventListener("click", async function() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
     try {
-        const response = await fetch("https://jeff-b2gq.onrender.com/chat", {
+        const response = await fetch(jeffConfig.backendUrl || "https://jeff-b2gq.onrender.com/chat", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                domanda: sentText
+                domanda: sentText,
+                siteId,
+                pageUrl: window.location.href
             })
         });
 
@@ -433,7 +444,7 @@ sendButton.addEventListener("click", async function() {
         typingMessage.remove();
 
         const botMessage = document.createElement("div");
-        botMessage.classList.add("bot-message");
+        botMessage.classList.add("jeff-bot-message");
         botMessage.textContent = data.risposta;
         chatMessages.appendChild(botMessage);
         salvaChat();
@@ -447,7 +458,7 @@ sendButton.addEventListener("click", async function() {
         }
 
         const errorMessage = document.createElement("div");
-        errorMessage.classList.add("bot-message");
+        errorMessage.classList.add("jeff-bot-message");
         errorMessage.textContent = errore.message;
         chatMessages.appendChild(errorMessage);
         chatMessages.scrollTop = chatMessages.scrollHeight;

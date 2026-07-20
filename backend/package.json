@@ -6,12 +6,12 @@
   
   "description": "",
   
-  "main": "test-chatbot.js",
+  "main": "src/server.js",
   
   "scripts": {
   
     
-  "start": "node test-chatbot.js"
+  "start": "node src/server.js"
   
   },
   

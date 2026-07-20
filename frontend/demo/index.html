@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jeff - Assistente virtuale</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/widget.css?v=20260720-2">
+
+        <script>
+            window.JeffWidgetConfig = {
+                siteId: "demo-comune",
+                assistantName: "Jeff",
+                buttonText: "Assistente virtuale",
+                welcomeMessage: "Ciao a tutti, io sono Jeff. Come posso aiutarti?",
+                inputPlaceholder: "Scrivi qui la tua domanda...",
+                primaryColor: "#c71e32",
+                secondaryColor: "#f5f5f5",
+                textColor: "#ffffff",
+                positionRight: "20px",
+                positionBottom: "40px",
+                size: "calc(6vmin + 70px)",
+                backendUrl: "http://localhost:3000/chat"
+            };
+        </script>
+        <script src="../assets/js/widget-app.js?v=20260720-2" defer></script>
+    </head>
+    <body>
+        <button
+            class="jeff-button"
+            data-jeff-widget="button"
+            type="button"
+            aria-label="Apri Jeff">
+            <span class="jeff-right-arrow">&lt;</span>
+            <span class="jeff-left-arrow">&gt;</span>
+            <span class="jeff-label">Assistente<br>virtuale</span>
+        </button>
+
+        <section
+            class="jeff-chat"
+            data-jeff-widget="chat"
+            aria-label="Chat con Jeff">
+            <button class="jeff-resize" type="button" aria-label="Ridimensiona chat">
+                <span>╔</span>
+            </button>
+
+            <button class="jeff-reset" type="button" aria-label="Cancella chat">
+                <svg class="jeff-trash-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 6h18"></path>
+                    <path d="M8 6V4h8v2"></path>
+                    <path d="M6 6l1 15h10l1-15"></path>
+                    <path d="M10 11v6"></path>
+                    <path d="M14 11v6"></path>
+                </svg>
+            </button>
+
+            <button class="jeff-close" type="button" aria-label="Chiudi chat">
+                <span>-</span>
+            </button>
+
+            <div class="jeff-chat-messages">
+                <div class="jeff-bot-message">Ciao a tutti, io sono Jeff. Come posso aiutarti?</div>
+            </div>
+
+            <form class="jeff-chat-form">
+                <textarea
+                    class="jeff-chat-input"
+                    rows="1"
+                    placeholder="Scrivi qui la tua domanda..."
+                    aria-label="Messaggio"></textarea>
+                <button class="jeff-send" type="submit" aria-label="Invia messaggio">➤</button>
+            </form>
+        </section>
+    </body>
+</html>

@@ -13,7 +13,7 @@ body {
     background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
 }*/
 
-:root {
+[data-jeff-widget] {
     --primary-color: #c71e32;
     --secondary-color: #f5f5f5;
     --text-color: #ffffff;
@@ -36,7 +36,7 @@ body {
     --top-control-visual: 20px;
 }
 
-.bottone {
+.jeff-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,16 +58,16 @@ body {
     user-select: none;
 }
 
-.bottone:hover {
+.jeff-button:hover {
     box-shadow: var(--primary-shadow);
     transform: scale(1.05);
 }
 
-.bottone:active {
+.jeff-button:active {
     cursor: grabbing;
 }
 
-.bottone.linguetta{
+.jeff-button.jeff-tab{
     display: flex;
     justify-content: center;
     background-color: var(--primary-color);
@@ -77,16 +77,16 @@ body {
 
 }
 
-.bottone.opaco {
+.jeff-button.jeff-idle {
     opacity: 0.5;
 }
 
-.bottone.opaco:hover {
+.jeff-button.jeff-idle:hover {
     opacity: 1;
 }
 
 
-.text {
+.jeff-label {
     display: inline;
     align-items: center;
     justify-content: center;
@@ -98,7 +98,7 @@ body {
 
 }
 
-.right-arrow {
+.jeff-right-arrow {
     display: none;
     align-items: left;
     justify-content: left;
@@ -110,7 +110,7 @@ body {
     font-weight: 1000;
 }
 
-.left-arrow {
+.jeff-left-arrow {
     display: none;
     align-items: right;
     justify-content: right;
@@ -122,7 +122,7 @@ body {
     font-weight: 1000;
 }
 
-.chat {
+.jeff-chat {
     display: none;
 
     background:
@@ -152,7 +152,7 @@ body {
         0 10px 28px rgba(20, 24, 31, 0.08);
 }
 
-.chat::before {
+.jeff-chat::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -165,7 +165,7 @@ body {
     z-index: 0;
 }
 
-.chat::after {
+.jeff-chat::after {
     content: "";
     position: absolute;
     top: 6px;
@@ -183,21 +183,21 @@ body {
     z-index: 2;
 }
 
-.chat:hover::after,
-.chat.dragging-chat::after {
+.jeff-chat:hover::after,
+.jeff-chat.jeff-dragging::after {
     background-color: rgba(30, 36, 45, 0.24);
 }
 
-.chat.dragging-chat,
-.chat.dragging-chat::after {
+.jeff-chat.jeff-dragging,
+.jeff-chat.jeff-dragging::after {
     cursor: grabbing;
 }
 
-.chat.dragging-chat * {
+.jeff-chat.jeff-dragging * {
     cursor: grabbing;
 }
 
-.chat-form {
+.jeff-chat-form {
     display: flex;
 
     align-items: flex-end;
@@ -220,7 +220,7 @@ body {
     z-index: 2;
 }
 
-.chat-input {
+.jeff-chat-input {
     border: none;
     border-radius: var(--chat-form-radius);
     outline: none;
@@ -248,7 +248,7 @@ body {
     padding-bottom: 10px;
 }
 
-.send-button {
+.jeff-send {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -276,13 +276,13 @@ body {
     
 }
 
-.send-button:hover{
+.jeff-send:hover{
     transform: scale(1.05);
     transition: transform 0.6s ease;
 }
 
-.chat .chat-form,
-.chat .chat-form:focus-within {
+.jeff-chat .jeff-chat-form,
+.jeff-chat .jeff-chat-form:focus-within {
     align-items: flex-end !important;
     background-color: rgba(255, 255, 255, 0.58) !important;
     border: 1px solid rgba(255, 255, 255, 0.72) !important;
@@ -298,10 +298,10 @@ body {
     width: 100% !important;
 }
 
-.chat textarea.chat-input,
-.chat textarea.chat-input:focus,
-.chat textarea.chat-input:focus-visible,
-.chat textarea.chat-input:active {
+.jeff-chat textarea.jeff-chat-input,
+.jeff-chat textarea.jeff-chat-input:focus,
+.jeff-chat textarea.jeff-chat-input:focus-visible,
+.jeff-chat textarea.jeff-chat-input:active {
     appearance: none !important;
     -webkit-appearance: none !important;
     background-color: transparent !important;
@@ -329,7 +329,7 @@ body {
     width: auto !important;
 }
 
-.resize-chat {
+.jeff-resize {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -347,10 +347,10 @@ body {
     z-index: 3;
 
 }
-.resize-chat:hover{
+.jeff-resize:hover{
     cursor: nw-resize;
 }
-.close-button {
+.jeff-close {
     display: flex;
     align-items: center;
 
@@ -375,13 +375,13 @@ body {
     z-index: 3;
 }
 
-.close-button span,
-.ricarica-chat span {
+.jeff-close span,
+.jeff-reset span {
     position: relative;
     z-index: 1;
 }
 
-.close-button::before {
+.jeff-close::before {
     content: "";
     position: absolute;
     width: var(--top-control-visual);
@@ -391,12 +391,12 @@ body {
     box-shadow: var(--secondary-shadow);
 }
 
-.close-button:hover{
+.jeff-close:hover{
     transform: scale(1.05);
     transition: transform 0.6s ease ;
 }
 
-.ricarica-chat {
+.jeff-reset {
     display: flex;
     align-items: center;
 
@@ -421,7 +421,7 @@ body {
     z-index: 3;
 }
 
-.ricarica-chat::before {
+.jeff-reset::before {
     content: "";
     position: absolute;
     width: var(--top-control-visual);
@@ -431,12 +431,24 @@ body {
     box-shadow: var(--secondary-shadow);
 }
 
-.ricarica-chat:hover {
+.jeff-reset:hover {
     transform: scale(1.05);
     transition: transform 0.6s ease;
 }
 
-.chat-messages {
+.jeff-trash-icon {
+    position: relative;
+    z-index: 1;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.jeff-chat-messages {
     font-weight: 500;
     font-size: 16px;
     margin-top: calc(var(--chat-top-controls-space) * -1);
@@ -471,11 +483,11 @@ body {
 
 }
 
-.chat-messages > :first-child {
+.jeff-chat-messages > :first-child {
     margin-top: var(--chat-message-top-space);
 }
 
-.user-message {
+.jeff-user-message {
     background-color: var(--secondary-color);
     color: black;
     box-shadow: var(--secondary-shadow);
@@ -496,7 +508,7 @@ body {
 
 }
 
-.bot-message {
+.jeff-bot-message {
     background-color: var(--primary-color);
     color: var(--text-color);
     box-shadow:  var(--primary-shadow);
@@ -518,7 +530,7 @@ body {
 
 
 /*scritto con ChatGPT*/
-.typing-message {
+.jeff-typing-message {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -526,7 +538,7 @@ body {
     padding: 12px 15px;
 }
 
-.typing-dot {
+.jeff-typing-dot {
     display: block;
     width: 5px;
     height: 5px;
@@ -535,25 +547,25 @@ body {
     animation: typing-bounce 1s infinite ease-in-out;
 }
 
-.typing-dot:nth-child(2) {
+.jeff-typing-dot:nth-child(2) {
     animation-delay: 0.15s;
 }
 
-.typing-dot:nth-child(3) {
+.jeff-typing-dot:nth-child(3) {
     animation-delay: 0.3s;
 }
 
-.bottone,
-.bottone *,
-.chat,
-.chat * {
+.jeff-button,
+.jeff-button *,
+.jeff-chat,
+.jeff-chat * {
     box-sizing: border-box !important;
     letter-spacing: normal !important;
     text-decoration: none !important;
     text-transform: none !important;
 }
 
-button.bottone {
+button.jeff-button {
     align-items: center !important;
     background-color: var(--primary-color) !important;
     border: 0 !important;
@@ -576,16 +588,45 @@ button.bottone {
     z-index: 2147483646 !important;
 }
 
-button.bottone.linguetta {
+button.jeff-button.jeff-tab {
     background-color: var(--primary-color) !important;
     border-radius: 25px !important;
     height: calc(var(--dimension) * 0.6);
     width: calc(var(--dimension) * 1.5);
 }
 
-.bottone .text,
-.bottone .right-arrow,
-.bottone .left-arrow {
+button.jeff-button.jeff-tab-right {
+    justify-content: flex-start !important;
+}
+
+button.jeff-button.jeff-tab-left {
+    justify-content: flex-end !important;
+}
+
+.jeff-button.jeff-tab-right .jeff-right-arrow,
+.jeff-button.jeff-tab-left .jeff-left-arrow {
+    display: block !important;
+    width: 14px !important;
+    height: 14px !important;
+    border: solid var(--text-color) !important;
+    border-width: 0 3px 3px 0 !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+}
+
+.jeff-button.jeff-tab-right .jeff-right-arrow {
+    margin-left: 22px !important;
+    transform: rotate(135deg);
+}
+
+.jeff-button.jeff-tab-left .jeff-left-arrow {
+    margin-right: 22px !important;
+    transform: rotate(-45deg);
+}
+
+.jeff-button .jeff-label,
+.jeff-button .jeff-right-arrow,
+.jeff-button .jeff-left-arrow {
     color: var(--text-color) !important;
     font-family: var(--font-family) !important;
     line-height: 1.1 !important;
@@ -594,19 +635,19 @@ button.bottone.linguetta {
     padding: 0 !important;
 }
 
-.bottone .text {
+.jeff-button .jeff-label {
     font-size: 16px !important;
     font-weight: 600 !important;
     text-align: center !important;
 }
 
-.bottone .right-arrow,
-.bottone .left-arrow {
+.jeff-button .jeff-right-arrow,
+.jeff-button .jeff-left-arrow {
     font-size: 40px !important;
     font-weight: 1000 !important;
 }
 
-section.chat {
+section.jeff-chat {
     background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.46), rgba(245, 246, 248, 0.28)),
         rgba(255, 255, 255, 0.22) !important;
@@ -635,7 +676,7 @@ section.chat {
     -webkit-backdrop-filter: blur(var(--chat-blur)) !important;
 }
 
-.chat .chat-messages {
+.jeff-chat .jeff-chat-messages {
     display: flex !important;
     flex: 1 1 auto;
     flex-direction: column !important;
@@ -654,9 +695,9 @@ section.chat {
     z-index: 1 !important;
 }
 
-.chat .user-message,
-.chat .bot-message,
-.chat .typing-message {
+.jeff-chat .jeff-user-message,
+.jeff-chat .jeff-bot-message,
+.jeff-chat .jeff-typing-message {
     border: 0 !important;
     border-radius: var(--chat-form-radius) !important;
     box-sizing: border-box !important;
@@ -674,7 +715,7 @@ section.chat {
     width: fit-content;
 }
 
-.chat .user-message {
+.jeff-chat .jeff-user-message {
     align-self: flex-end !important;
     background-color: var(--secondary-color) !important;
     box-shadow: var(--secondary-shadow) !important;
@@ -682,7 +723,7 @@ section.chat {
     margin: 0 12px 10px 0 !important;
 }
 
-.chat .bot-message {
+.jeff-chat .jeff-bot-message {
     align-self: flex-start !important;
     background-color: var(--primary-color) !important;
     box-shadow: var(--primary-shadow) !important;
@@ -690,14 +731,14 @@ section.chat {
     margin: 0 0 10px 12px !important;
 }
 
-.chat .chat-messages > :first-child {
+.jeff-chat .jeff-chat-messages > :first-child {
     margin-top: var(--chat-message-top-space) !important;
 }
 
-.chat button.send-button,
-.chat button.resize-chat,
-.chat button.close-button,
-.chat button.ricarica-chat {
+.jeff-chat button.jeff-send,
+.jeff-chat button.jeff-resize,
+.jeff-chat button.jeff-close,
+.jeff-chat button.jeff-reset {
     appearance: none !important;
     -webkit-appearance: none !important;
     border: 0 !important;
@@ -712,7 +753,7 @@ section.chat {
     text-indent: 0 !important;
 }
 
-.chat button.send-button {
+.jeff-chat button.jeff-send {
     align-items: center !important;
     align-self: flex-end !important;
     background-color: var(--primary-color) !important;
@@ -731,7 +772,7 @@ section.chat {
     width: var(--send-target) !important;
 }
 
-.chat button.resize-chat {
+.jeff-chat button.jeff-resize {
     align-items: center !important;
     background: transparent !important;
     color: var(--primary-color) !important;
@@ -747,8 +788,8 @@ section.chat {
     z-index: 3 !important;
 }
 
-.chat button.close-button,
-.chat button.ricarica-chat {
+.jeff-chat button.jeff-close,
+.jeff-chat button.jeff-reset {
     align-items: center !important;
     background-color: transparent !important;
     border-radius: 50% !important;
@@ -763,20 +804,20 @@ section.chat {
     z-index: 3 !important;
 }
 
-.chat button.close-button {
+.jeff-chat button.jeff-close {
     font-weight: 800 !important;
     right: 10px !important;
     top: 7px !important;
 }
 
-.chat button.ricarica-chat {
+.jeff-chat button.jeff-reset {
     font-weight: 700 !important;
     right: 36px !important;
     top: 7px !important;
 }
 
-.chat .close-button::before,
-.chat .ricarica-chat::before {
+.jeff-chat .jeff-close::before,
+.jeff-chat .jeff-reset::before {
     background-color: var(--primary-color) !important;
     border-radius: 50% !important;
     box-shadow: var(--secondary-shadow) !important;
@@ -786,7 +827,7 @@ section.chat {
     width: var(--top-control-visual) !important;
 }
 
-.chat .typing-dot {
+.jeff-chat .jeff-typing-dot {
     background-color: var(--text-color) !important;
     border-radius: 50% !important;
     display: block !important;
@@ -796,7 +837,7 @@ section.chat {
 }
 
 @media (hover: none), (pointer: coarse), (max-width: 640px) {
-    :root {
+    [data-jeff-widget] {
         --chat-message-top-space: 52px;
         --chat-top-controls-space: 56px;
         --chat-radius: 28px;
@@ -806,43 +847,48 @@ section.chat {
         --top-control-visual: 32px;
     }
 
-    section.chat {
+    section.jeff-chat {
         width: min(400px, calc(100vw - 40px));
         max-height: min(620px, calc(100vh - 80px));
     }
 
-    .chat .chat-form {
+    .jeff-chat .jeff-chat-form {
         min-height: 54px !important;
     }
 
-    .chat textarea.chat-input,
-    .chat textarea.chat-input:focus,
-    .chat textarea.chat-input:focus-visible,
-    .chat textarea.chat-input:active {
+    .jeff-chat textarea.jeff-chat-input,
+    .jeff-chat textarea.jeff-chat-input:focus,
+    .jeff-chat textarea.jeff-chat-input:focus-visible,
+    .jeff-chat textarea.jeff-chat-input:active {
         padding-top: 10px !important;
         padding-right: 12px !important;
     }
 
-    .chat button.send-button {
+    .jeff-chat button.jeff-send {
         font-size: 20px !important;
         margin: 4px !important;
     }
 
-    .chat button.resize-chat {
+    .jeff-chat button.jeff-resize {
         display: none !important;
         top: 4px !important;
         left: 4px !important;
         font-size: 24px !important;
     }
 
-    .chat button.close-button {
+    .jeff-chat button.jeff-close {
         top: 4px !important;
         right: 4px !important;
     }
 
-    .chat button.ricarica-chat {
+    .jeff-chat button.jeff-reset {
         top: 4px !important;
         right: 52px !important;
+    }
+    .jeff-trash-icon {
+        width: 20px;
+        height: 20px;
+        stroke-width: 2.2;
     }
 }
 
